@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
@@ -39,6 +41,22 @@ app.use('/api/certificates', certificateRoutes);
 app.get('/health', (req, res) => {
   res.status(200).json({ message: 'Server is running' });
 });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static frontend files in production
+if (process.env.NODE_ENV === 'production') {
+  const buildPath = path.join(__dirname, '../frontend/build');
+  app.use(express.static(buildPath));
+  
+  app.get('/*splat', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health')) {
+      return next();
+    }
+    res.sendFile(path.join(buildPath, 'index.html'));
+  });
+}
 
 // 404 Handler
 app.use((req, res) => {

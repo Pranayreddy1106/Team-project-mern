@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import tokenManager from '../utils/tokenManager';
+import { SOCKET_URL } from '../constants';
 
 class ChatService {
   constructor() {
@@ -10,8 +11,7 @@ class ChatService {
   connect() {
     if (this.socket?.connected) return;
 
-    const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000';
-    
+    // Using centralized dynamic SOCKET_URL from constants
     this.socket = io(SOCKET_URL, {
       reconnection: true,
       reconnectionDelay: 1000,

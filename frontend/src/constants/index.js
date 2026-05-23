@@ -1,5 +1,7 @@
-export const API_BASE_URL = 'http://localhost:5000/api';
-export const SOCKET_URL = 'http://localhost:5000';
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 
+  (window.location.port === '3000' ? 'http://localhost:5000/api' : `${window.location.origin}/api`);
+export const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || 
+  (window.location.port === '3000' ? 'http://localhost:5000' : window.location.origin);
 
 export const ROLES = {
   STUDENT: 'student',
