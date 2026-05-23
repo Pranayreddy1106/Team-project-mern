@@ -12,3 +12,9 @@ services:
         value: mongodb+srv://blog_admin:wM_5bnF7tTQr_nN@blogapp.vwtwcem.mongodb.net/blogapp?retryWrites=true&w=majority&appName=blogapp
       - key: JWT_SECRET
         value: supersecret123
+      - key: NODE_VERSION
+        value: 22.14.0
+      - key: GENERATE_SOURCEMAP
+        value: false
+      - key: CI
+        value: false
