@@ -3,7 +3,7 @@ services:
     name: eduflow-app
     env: node
     plan: free
-    buildCommand: npm install && npm run build-frontend
+    buildCommand: npm install && npm run install-all && npm run build-frontend
     startCommand: npm run start-backend
     envVars:
       - key: NODE_ENV
