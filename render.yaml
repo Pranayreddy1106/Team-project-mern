@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: eduflow-app
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build-frontend
+    startCommand: npm run start-backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://blog_admin:wM_5bnF7tTQr_nN@blogapp.vwtwcem.mongodb.net/blogapp?retryWrites=true&w=majority&appName=blogapp
+      - key: JWT_SECRET
+        value: supersecret123
