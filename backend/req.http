@@ -1,0 +1,520 @@
+###############################################################################
+# MERN COURSE PLATFORM - COMPLETE API TESTING FILE (req.http)
+###############################################################################
+# Instructions:
+# 1. Install "REST Client" extension in VS Code
+# 2. Copy token values after login and paste into @Token variables
+# 3. Copy database IDs after creating resources
+# 4. Run each endpoint by clicking "Send Request" above it
+###############################################################################
+
+@baseUrl = http://localhost:5000/api
+@adminToken = 
+@instructorToken = 
+@studentToken = 
+@student2Token = 
+@courseId = 
+@lectureId = 
+
+###############################################################################
+# SECTION 1: AUTHENTICATION (Register, Login, Logout)
+###############################################################################
+
+### 1.1 Register Student
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Student",
+  "email": "student@example.com",
+  "password": "password123",
+  "role": "student"
+}
+
+### 1.2 Register Instructor
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Jane Instructor",
+  "email": "instructor@example.com",
+  "password": "password123",
+  "role": "instructor"
+}
+
+### 1.3 Register Admin
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Admin User",
+  "email": "admin@example.com",
+  "password": "password123",
+  "role": "admin"
+}
+
+### 1.4 Register Second Student
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Bob Student",
+  "email": "student2@example.com",
+  "password": "password123",
+  "role": "student"
+}
+
+### 1.5 Login Student → COPY TOKEN TO @studentToken
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "student@example.com",
+  "password": "password123"
+}
+
+### 1.6 Login Instructor → COPY TOKEN TO @instructorToken
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "instructor@example.com",
+  "password": "password123"
+}
+
+### 1.7 Login Admin → COPY TOKEN TO @adminToken
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+
+### 1.8 Login Second Student → COPY TOKEN TO @student2Token
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "student2@example.com",
+  "password": "password123"
+}
+
+### 1.9 Get Current User Profile
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{studentToken}}
+
+### 1.10 Logout
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{studentToken}}
+
+###############################################################################
+# SECTION 2: USER MANAGEMENT
+###############################################################################
+
+### 2.1 Get My Profile
+GET {{baseUrl}}/users/me/profile
+Authorization: Bearer {{studentToken}}
+
+### 2.2 Get My Stats (Courses, Certificates, Quiz Scores)
+GET {{baseUrl}}/users/me/stats
+Authorization: Bearer {{studentToken}}
+
+### 2.3 Update My Profile
+PUT {{baseUrl}}/users/me/profile
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "name": "John Updated",
+  "bio": "I love learning!",
+  "avatar": "https://example.com/avatar.jpg"
+}
+
+### 2.4 Get All Users (Admin Only)
+GET {{baseUrl}}/users
+Authorization: Bearer {{adminToken}}
+
+### 2.5 Get Users by Role - Students (Admin Only)
+GET {{baseUrl}}/users/role/student
+Authorization: Bearer {{adminToken}}
+
+### 2.6 Get Users by Role - Instructors (Admin Only)
+GET {{baseUrl}}/users/role/instructor
+Authorization: Bearer {{adminToken}}
+
+### 2.7 Get Public User Profile
+GET {{baseUrl}}/users/PASTE_USER_ID_HERE
+
+###############################################################################
+# SECTION 3: COURSES
+###############################################################################
+
+### 3.1 Create Course (Instructor Only) → COPY ID TO @courseId
+POST {{baseUrl}}/courses
+Authorization: Bearer {{instructorToken}}
+Content-Type: application/json
+
+{
+  "title": "Complete Web Development Bootcamp",
+  "description": "Learn HTML, CSS, JavaScript, React, Node.js from scratch",
+  "category": "Web Development",
+  "thumbnail": "https://via.placeholder.com/300x200",
+  "price": 49.99
+}
+
+### 3.2 Get Course Details
+GET {{baseUrl}}/courses/{{courseId}}
+
+### 3.3 Get My Enrolled Courses
+GET {{baseUrl}}/courses/my
+Authorization: Bearer {{studentToken}}
+
+### 3.4 Check if Enrolled in Course
+GET {{baseUrl}}/courses/{{courseId}}/is-enrolled
+Authorization: Bearer {{studentToken}}
+
+### 3.5 Enroll in Course (Free)
+POST {{baseUrl}}/courses/{{courseId}}/enroll
+Authorization: Bearer {{studentToken}}
+
+###############################################################################
+# SECTION 4: LECTURES
+###############################################################################
+
+### 4.1 Add Lecture to Course (Instructor Only) → COPY ID TO @lectureId
+POST {{baseUrl}}/lectures/{{courseId}}
+Authorization: Bearer {{instructorToken}}
+Content-Type: application/json
+
+{
+  "title": "Introduction to HTML",
+  "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+  "description": "Learn the basics of HTML and structure of web pages",
+  "duration": 1800,
+  "isPreview": true,
+  "resources": [
+    {
+      "title": "HTML Cheatsheet",
+      "url": "https://example.com/html-cheatsheet.pdf"
+    },
+    {
+      "title": "Code Examples",
+      "url": "https://example.com/html-examples.zip"
+    }
+  ]
+}
+
+### 4.2 Add Second Lecture
+POST {{baseUrl}}/lectures/{{courseId}}
+Authorization: Bearer {{instructorToken}}
+Content-Type: application/json
+
+{
+  "title": "CSS Styling Deep Dive",
+  "videoUrl": "https://youtu.be/jfKfPfyJRdk",
+  "description": "Master CSS for beautiful and responsive styling",
+  "duration": 2400,
+  "isPreview": false,
+  "resources": []
+}
+
+### 4.3 Get All Lectures in Course
+GET {{baseUrl}}/lectures/{{courseId}}
+Authorization: Bearer {{studentToken}}
+
+### 4.4 Delete Lecture (Instructor Only)
+DELETE {{baseUrl}}/lectures/{{lectureId}}
+Authorization: Bearer {{instructorToken}}
+
+###############################################################################
+# SECTION 5: QUIZ & ASSESSMENT
+###############################################################################
+
+### 5.1 Create Quiz (Instructor/Admin Only)
+POST {{baseUrl}}/quizzes/quiz/{{courseId}}
+Authorization: Bearer {{instructorToken}}
+Content-Type: application/json
+
+{
+  "questions": [
+    {
+      "question": "What does HTML stand for?",
+      "options": [
+        "Hyper Text Markup Language",
+        "High Tech Modern Language",
+        "Home Tool Markup Language",
+        "Hyperlinks and Text Markup Language"
+      ],
+      "correctAnswer": 0
+    },
+    {
+      "question": "Which HTML tag is used for the largest heading?",
+      "options": ["<h6>", "<h1>", "<head>", "<heading>"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "What is the correct HTML for creating a hyperlink?",
+      "options": [
+        "<a>http://www.example.com</a>",
+        "<a href='http://www.example.com'>Link</a>",
+        "<link>http://www.example.com</link>",
+        "<hyperlink>http://www.example.com</hyperlink>"
+      ],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Which CSS property controls text color?",
+      "options": ["font-color", "text-color", "color", "text"],
+      "correctAnswer": 2
+    }
+  ]
+}
+
+### 5.2 Get Quiz for Course
+GET {{baseUrl}}/quizzes/quiz/{{courseId}}
+Authorization: Bearer {{studentToken}}
+
+### 5.3 Attempt Quiz - Passing Score (≥75%)
+POST {{baseUrl}}/quizzes/quiz/attempt/{{courseId}}
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "answers": [0, 1, 1, 2]
+}
+
+### 5.4 Attempt Quiz - Failing Score (<75%)
+POST {{baseUrl}}/quizzes/quiz/attempt/{{courseId}}
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "answers": [1, 0, 0, 0]
+}
+
+###############################################################################
+# SECTION 6: PAYMENTS & ENROLLMENT
+###############################################################################
+
+### 6.1 Create Payment and Enroll (Paid Enrollment)
+POST {{baseUrl}}/payments/create
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}"
+}
+
+###############################################################################
+# SECTION 7: REVIEWS & RATINGS
+###############################################################################
+
+### 7.1 Add Review to Course
+POST {{baseUrl}}/reviews
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}",
+  "rating": 5,
+  "comment": "Excellent course! Very well structured and easy to follow."
+}
+
+### 7.2 Add Review as Second Student
+POST {{baseUrl}}/reviews
+Authorization: Bearer {{student2Token}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}",
+  "rating": 4,
+  "comment": "Good course with helpful resources. Could use more practice problems."
+}
+
+### 7.3 Get All Reviews for Course
+GET {{baseUrl}}/reviews/course/{{courseId}}
+
+### 7.4 Add Duplicate Review (Should Fail - 400)
+POST {{baseUrl}}/reviews
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}",
+  "rating": 3,
+  "comment": "This is a duplicate review and should fail"
+}
+
+###############################################################################
+# SECTION 8: CERTIFICATES
+###############################################################################
+
+### 8.1 Generate Certificate
+POST {{baseUrl}}/certificates/certificate/generate
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}"
+}
+
+### 8.2 Get Certificate
+GET {{baseUrl}}/certificates/certificate/{{courseId}}
+Authorization: Bearer {{studentToken}}
+
+### 8.3 Try Getting Non-existent Certificate (Should Fail - 404)
+GET {{baseUrl}}/certificates/certificate/INVALID_COURSE_ID
+Authorization: Bearer {{studentToken}}
+
+###############################################################################
+# SECTION 9: PROGRESS TRACKING
+###############################################################################
+
+### 9.1 Update Progress (Mark Lecture as Watched)
+POST {{baseUrl}}/progress/update
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "courseId": "{{courseId}}",
+  "lectureId": "{{lectureId}}",
+  "timestamp": 300
+}
+
+### 9.2 Get Progress for Specific Course
+GET {{baseUrl}}/progress/{{courseId}}
+Authorization: Bearer {{studentToken}}
+
+### 9.3 Get All Progress (All Courses)
+GET {{baseUrl}}/progress
+Authorization: Bearer {{studentToken}}
+
+### 9.4 Get Progress Percentage
+GET {{baseUrl}}/progress/{{courseId}}/percentage
+Authorization: Bearer {{studentToken}}
+
+###############################################################################
+# SECTION 10: ERROR HANDLING & EDGE CASES
+###############################################################################
+
+### 10.1 Missing Authorization Token (401 Error)
+GET {{baseUrl}}/users/me/profile
+
+### 10.2 Invalid Token Format (401 Error)
+GET {{baseUrl}}/users/me/profile
+Authorization: Bearer invalid_token_123
+
+### 10.3 Student Accessing Admin Route (403 Forbidden)
+GET {{baseUrl}}/users
+Authorization: Bearer {{studentToken}}
+
+### 10.4 Student Creating Course (403 Forbidden)
+POST {{baseUrl}}/courses
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "title": "Unauthorized Course",
+  "price": 99.99
+}
+
+### 10.5 Enroll Twice in Same Course (400 Error)
+POST {{baseUrl}}/courses/{{courseId}}/enroll
+Authorization: Bearer {{studentToken}}
+
+### 10.6 Instructor Enrolling Own Course (400 Error)
+POST {{baseUrl}}/courses/{{courseId}}/enroll
+Authorization: Bearer {{instructorToken}}
+
+### 10.7 Invalid Quiz Answers - Wrong Count (400 Error)
+POST {{baseUrl}}/quizzes/quiz/attempt/{{courseId}}
+Authorization: Bearer {{studentToken}}
+Content-Type: application/json
+
+{
+  "answers": [0, 1]
+}
+
+### 10.8 Get Non-existent Course (404 Error)
+GET {{baseUrl}}/courses/INVALID_COURSE_ID
+
+### 10.9 Missing Required Fields in Course Creation
+POST {{baseUrl}}/courses
+Authorization: Bearer {{instructorToken}}
+Content-Type: application/json
+
+{
+  "title": "Course without price"
+}
+
+### 10.10 Invalid Email Format
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Invalid User",
+  "email": "not-an-email",
+  "password": "password123",
+  "role": "student"
+}
+
+###############################################################################
+# COMPLETE WORKFLOW GUIDE
+###############################################################################
+# Follow these steps in order to test the complete application:
+#
+# 1. SETUP PHASE:
+#    a) Run 1.1 - Register Student
+#    b) Run 1.2 - Register Instructor
+#    c) Run 1.3 - Register Admin
+#    d) Run 1.5 - Login Student → Copy token to @studentToken
+#    e) Run 1.6 - Login Instructor → Copy token to @instructorToken
+#    f) Run 1.7 - Login Admin → Copy token to @adminToken
+#
+# 2. COURSE CREATION:
+#    a) Run 3.1 - Create Course → Copy courseId to @courseId
+#    b) Run 4.1 - Add Lecture → Copy lectureId to @lectureId
+#    c) Run 4.2 - Add Second Lecture
+#    d) Run 3.2 - Get Course Details
+#
+# 3. ASSESSMENT SETUP:
+#    a) Run 5.1 - Create Quiz as the instructor who owns the course
+#    b) Run 5.2 - Get Quiz
+#
+# 4. STUDENT LEARNING:
+#    a) Run 3.5 - Enroll in Course
+#    b) Run 3.3 - Get My Courses
+#    c) Run 9.1 - Update Progress
+#    d) Run 9.2 - Get Progress
+#    e) Run 9.4 - Get Progress Percentage
+#
+# 5. ASSESSMENT:
+#    a) Run 5.3 - Attempt Quiz (Passing)
+#    b) Run 5.4 - Attempt Quiz (Failing)
+#
+# 6. REVIEWS:
+#    a) Run 7.1 - Add Review
+#    b) Run 7.3 - Get Reviews
+#
+# 7. CERTIFICATES:
+#    a) Run 8.1 - Generate Certificate
+#    b) Run 8.2 - Get Certificate
+#
+# 8. USER STATS:
+#    a) Run 2.2 - Get My Stats
+#
+# 9. ERROR TESTING:
+#    a) Run 10.1 through 10.10 to test error handling
+#
+###############################################################################
+
+### NOTES:
+### - All tokens expire after 7 days
+### - Quiz passing score: 75% or above
+### - One review per user per course
+### - Payment demo uses hardcoded "paid" status
+### - Role-based access: student, instructor, admin
+### - Socket.io chat available on same port (ws://localhost:5000)
+
+###############################################################################

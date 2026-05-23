@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: 79 70 229;
+  --color-bg: 248 250 252;
+  --color-card: 255 255 255;
+  --color-border: 226 232 240;
+  --color-text: 15 23 42;
+  --color-muted: 71 85 105;
+}
+
+.dark {
+  --color-primary: 129 140 248;
+  --color-bg: 12 16 24;
+  --color-card: 20 27 38;
+  --color-border: 51 65 85;
+  --color-text: 241 245 249;
+  --color-muted: 148 163 184;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(var(--color-bg));
+  color: rgb(var(--color-text));
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-primary));
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-bg));
+}
+
+.text-gray-400,
+.text-gray-500 {
+  color: rgb(var(--color-muted));
+}
