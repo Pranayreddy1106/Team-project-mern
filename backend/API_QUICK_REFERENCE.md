@@ -1,9 +1,9 @@
 # API QUICK REFERENCE GUIDE
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Start Server
-```bash
+
 npm run dev  # Development with auto-reload
 npm start    # Production
 ```
@@ -15,10 +15,10 @@ http://localhost:5000/api
 
 ---
 
-## 🔐 Authentication
+##  Authentication
 
 ### Register
-```http
+
 POST /auth/register
 {
   "name": "User Name",
@@ -45,7 +45,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 👤 User Endpoints
+##  User Endpoints
 
 | Method | Endpoint | Role | Purpose |
 |--------|----------|------|---------|
@@ -57,7 +57,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 📚 Course Endpoints
+##  Course Endpoints
 
 | Method | Endpoint | Role | Purpose |
 |--------|----------|------|---------|
@@ -78,7 +78,7 @@ Authorization: Bearer {token}
 
 ---
 
-## ❓ Quiz Endpoints
+##  Quiz Endpoints
 
 | Method | Endpoint | Role | Purpose |
 |--------|----------|------|---------|
@@ -96,7 +96,7 @@ Authorization: Bearer {token}
 
 ---
 
-## ⭐ Review Endpoints
+##  Review Endpoints
 
 | Method | Endpoint | Role | Purpose |
 |--------|----------|------|---------|
@@ -114,7 +114,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 📊 Progress Endpoints
+##  Progress Endpoints
 
 | Method | Endpoint | Role | Purpose |
 |--------|----------|------|---------|
@@ -124,7 +124,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 🌐 Response Codes
+##  Response Codes
 
 | Code | Meaning |
 |------|---------|
@@ -138,7 +138,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 🔄 Common Workflows
+##  Common Workflows
 
 ### Register & Login
 ```
@@ -165,7 +165,7 @@ Authorization: Bearer {token}
 
 ---
 
-## 🧪 Quick Test with cURL
+##  Quick Test with cURL
 
 ### Register
 ```bash
@@ -189,7 +189,7 @@ curl -X GET http://localhost:5000/api/auth/me \
 
 ---
 
-## 📱 Example Requests (JSON)
+##  Example Requests (JSON)
 
 ### Create Course
 ```json
@@ -304,7 +304,7 @@ Common errors:
 
 ---
 
-## 🛠️ Development Tools
+##  Development Tools
 
 ### Required
 - Node.js
@@ -322,7 +322,7 @@ npm test           # Run tests
 
 ---
 
-## 📞 Support
+##  Support
 
 Detailed documentation: `COMPLETE_API_DOCUMENTATION.md`
 Testing guide: `QUICK_START_TESTING.md`
@@ -330,7 +330,7 @@ Test requests: `req.http`
 
 ---
 
-## ⚡ Pro Tips
+##  Tips
 
 1. Save tokens after login for testing
 2. Use environment variables for IDs
@@ -340,5 +340,3 @@ Test requests: `req.http`
 6. Socket.io connections stay open - join rooms after connecting
 
 ---
-
-**Happy Coding! 🚀**
