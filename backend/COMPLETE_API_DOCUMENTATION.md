@@ -2,73 +2,73 @@
 
 A full-featured online learning platform built with Node.js, Express, MongoDB, and Socket.io. This backend supports multiple user roles (Student, Instructor, Admin), course management, quizzes, payments, reviews, certificates, and real-time chat.
 
-## 🚀 Features Implemented
+##  Features Implemented
 
-### ✅ Authentication & Authorization
+###  Authentication & Authorization
 - User registration with role selection (student/instructor/admin)
 - JWT-based authentication (7-day expiry)
 - Password hashing with bcryptjs
 - Role-based access control (RBAC)
 - Secure token verification middleware
 
-### ✅ User Management
+###  User Management
 - User profile management (view, update)
 - User statistics (courses enrolled, certificates, quiz scores)
 - Admin user management (view all users, filter by role)
 - Public profile viewing
 
-### ✅ Course Management
+###  Course Management
 - Create courses (instructor only)
 - View course details with instructor & lecture info
 - Student enrollment (free and paid)
 - Get enrolled courses
 - Check enrollment status
 
-### ✅ Lecture Management
+###  Lecture Management
 - Add lectures to courses (instructor only)
 - Video URL storage with metadata
 - Lecture resources (PDFs, code files, etc.)
 - Preview lectures for non-enrolled students
 - Delete lectures (instructor only)
 
-### ✅ Quiz & Assessment
+###  Quiz & Assessment
 - Create quizzes with multiple-choice questions (instructor for own courses, admin for any course)
 - Get quiz details
 - Attempt quizzes with answer tracking
 - Auto-scoring with pass/fail determination (75% threshold)
 - Quiz attempt history
 
-### ✅ Payments
+###  Payments
 - Process payments and auto-enroll students (demo mode)
 - Payment status tracking (pending/paid/failed)
 - Transaction ID generation
 - Duplicate payment prevention
 
-### ✅ Reviews & Ratings
+###  Reviews & Ratings
 - Student reviews (1-5 star ratings)
 - Comments and feedback
 - One review per student per course
 - View all course reviews
 
-### ✅ Certificates
+###  Certificates
 - Certificate generation after course completion
 - Unique certificate IDs
 - Issue date tracking
 - Certificate retrieval
 
-### ✅ Progress Tracking
+###  Progress Tracking
 - Track lecture completion
 - Store watch timestamps
 - Calculate progress percentage
 - View overall progress
 
-### ✅ Real-time Chat
+###  Real-time Chat
 - Socket.io integration
 - Room-based conversations
 - Message history
 - User presence notifications
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend**: Node.js + Express.js
 - **Database**: MongoDB + Mongoose
@@ -77,7 +77,7 @@ A full-featured online learning platform built with Node.js, Express, MongoDB, a
 - **Security**: bcryptjs, CORS
 - **Utilities**: Dotenv, Multer (configured), Cloudinary (configured)
 
-## 📦 Installation
+##  Installation
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -119,7 +119,7 @@ npm start
 
 Server runs on `http://localhost:5000`
 
-## 📚 API Documentation
+##  API Documentation
 
 ### Base URL
 ```
@@ -424,7 +424,7 @@ Authorization: Bearer {jwt_token}
 | Add Review | ✓ | ✓ | ✓ |
 | Create Certificate | ✓ | ✗ | ✗ |
 
-## 💬 Socket.io Chat
+##  Socket.io Chat
 
 ### Connection
 ```javascript
@@ -467,7 +467,7 @@ socket.emit('leave_room', {
 });
 ```
 
-## 📊 Database Models
+##  Database Models
 
 ### User
 ```javascript
