@@ -1,4 +1,4 @@
-# MERN Course Platform Backend
+# Online Learning Platform [Udemy Clone] Backend
 
 This is the backend of an online learning platform built using Node.js, Express.js, MongoDB, and Socket.io. The backend handles authentication, course management, lectures, quizzes, payments, reviews, certificates, progress tracking, and real-time chat functionality.
 ## Technologies Used
